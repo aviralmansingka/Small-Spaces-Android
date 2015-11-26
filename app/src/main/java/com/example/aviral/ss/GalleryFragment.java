@@ -29,7 +29,7 @@ public class GalleryFragment extends Fragment {
         GridView gView = (GridView) v.findViewById(R.id.gridview);
         gView.setAdapter(new MyAdapter(getActivity()));
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return v;
     }
 
     private class MyAdapter extends BaseAdapter
@@ -46,6 +46,8 @@ public class GalleryFragment extends Fragment {
             items.add(new Item("Image 3", R.drawable.common_ic_googleplayservices));
             items.add(new Item("Image 4", R.drawable.mr_ic_audio_vol));
             items.add(new Item("Image 5", R.drawable.cast_ic_notification_connecting));
+            items.add(new Item("Image 6", R.drawable.common_signin_btn_icon_dark));
+            items.add(new Item("Image 7", R.drawable.cast_ic_notification_1));
         }
 
         @Override
