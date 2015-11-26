@@ -19,10 +19,10 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch(position){
             case 0:
-                return new GalleryFragment();
+                return new MapFragment();
 
             case 1:
-                return new MapFragment();
+                return new GalleryFragment();
         }
         return null;
 

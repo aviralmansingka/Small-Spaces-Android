@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -31,7 +32,8 @@ public class MapFragment extends Fragment {
 
     MapView mMapView;
     private GoogleMap googleMap;
-    private ListView mDrawerList;
+    //private ListView mDrawerList;
+    private RelativeLayout mRLDrawer;
     private DrawerLayout mDrawerLayout;
     private Object mActivityTitle;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -62,7 +64,6 @@ public class MapFragment extends Fragment {
             Log.e("SS","Google map is null");
         }
 
-
         Button b =(Button) v.findViewById(R.id.bToggle);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,18 +71,20 @@ public class MapFragment extends Fragment {
                 mDrawerLayout.openDrawer(Gravity.LEFT);
             }
         });
-        mDrawerList = (ListView)v.findViewById(R.id.navList);
+        //mDrawerList = (ListView)v.findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout)v.findViewById(R.id.drawer_layout);
+        mRLDrawer = (RelativeLayout) v.findViewById(R.id.rlDrawer);
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
-
 
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
+
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
             }
 
@@ -107,21 +110,21 @@ public class MapFragment extends Fragment {
     private void setupDrawer() {
 
 
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        //mDrawerToggle.setDrawerIndicatorEnabled(true);
 
     }
 
     private void addDrawerItems() {
-        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux" };
-        mAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, osArray);
-        mDrawerList.setAdapter(mAdapter);
-
-        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "Time for an upgrade!", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux" };
+//        mAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, osArray);
+//        mDrawerList.setAdapter(mAdapter);
+//
+//        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(getActivity(), "Time for an upgrade!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     private void addMarkers() {
