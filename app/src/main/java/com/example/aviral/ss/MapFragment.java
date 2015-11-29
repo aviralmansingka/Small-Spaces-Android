@@ -1,5 +1,6 @@
 package com.example.aviral.ss;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,21 +25,37 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * A fragment that launches other parts of the demo application.
  */
 public class MapFragment extends Fragment {
 
+    String s = "{\"collection\": [ " +
+            "{\"artist\":\"Zach Medler\",\"desc\":\"DESCRIPTION GOES HERE\", \"geo_lat\":\"40.4189319\", \"geo_long\":\"-86.89487767\", \"id\":\"1\", \"image_location\":\"img_01.png\"}," +
+            "" +
+            "{\"artist\":\"Aaron Bumgardner\",\"desc\":\"DESCRIPTION GOES HERE\", \"geo_lat\":\"40.41987803\", \"geo_long\":\"-86.89433289\", \"id\":\"2\", \"image_location\":\"img_02.png\"}," +
+            "" +
+            "{\"artist\":\"Lisa Wicka\",\"desc\":\"DESCRIPTION GOES HERE\", \"geo_lat\":\"40.42007323\", \"geo_long\":\"-86.89256559\", \"id\":\"3\", \"image_location\":\"img_03.png\"}," +
+            "" +
+            "{\"artist\":\"Paul Meadows\",\"desc\":\"DESCRIPTION GOES HERE\", \"geo_lat\":\"40.4189319\", \"geo_long\":\"-86.89487767\", \"id\":\"4\", \"image_location\":\"img_04.png\"}] }";
     MapView mMapView;
-    private GoogleMap googleMap;
+    protected GoogleMap googleMap;
     //private ListView mDrawerList;
     private RelativeLayout mRLDrawer;
     private DrawerLayout mDrawerLayout;
     private Object mActivityTitle;
     private ActionBarDrawerToggle mDrawerToggle;
     private ArrayAdapter<String> mAdapter;
+    private JSONObject obj = null;
+    private TextView tvName;
+    private TextView tvDesc;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +63,8 @@ public class MapFragment extends Fragment {
         // inflat and return the layout
         View v = inflater.inflate(R.layout.map_fragment, container,
                 false);
+        tvName = (TextView) v.findViewById(R.id.tvName);
+        tvDesc = (TextView) v.findViewById(R.id.tvDesc);
         mMapView = (MapView) v.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
@@ -63,7 +83,21 @@ public class MapFragment extends Fragment {
         else{
             Log.e("SS","Google map is null");
         }
-
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                int id = Integer.parseInt(marker.getTitle());
+                try {
+                    tvName.setText(obj.getJSONArray("collection").getJSONObject(id).getString("artist"));
+                    tvDesc.setText(obj.getJSONArray("collection").getJSONObject(id).getString("desc"));
+                    mDrawerLayout.openDrawer(Gravity.LEFT);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("MarkerClick", "Issue with marker JSON");
+                }
+                return true;
+            }
+        });
         Button b =(Button) v.findViewById(R.id.bToggle);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,19 +165,30 @@ public class MapFragment extends Fragment {
 
         //TODO add Marker imports here
 
-        double latitude = 17.385044;
-        double longitude = 78.486671;
+        try {
+            obj = new JSONObject(s);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("BackgroundMarker","Error in writing JSON");
+        }
+        Log.d("BackgroundMarker", s);
+        try {
+            JSONArray arr = obj.getJSONArray("collection");
+            for(int i=0; i<arr.length();i++){
+                JSONObject object = arr.getJSONObject(i);
+                double lat = Double.parseDouble(object.getString("geo_lat"));
+                double lng = Double.parseDouble(object.getString("geo_long"));
+                MarkerOptions a = new MarkerOptions()
+                        .position(new LatLng(lat,lng)).title(object.getString("id"));
+                Marker m = googleMap.addMarker(a);
 
-        // create marker
-        MarkerOptions marker = new MarkerOptions().position(
-                new LatLng(latitude, longitude)).title("Hello Maps");
-
-
-
-        // adding marker
-        googleMap.addMarker(marker);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("BackgroundMarker", "Error in getting JSONArray");
+        }
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(new LatLng(17.385044, 78.486671)).zoom(12).build();
+                .target(new LatLng(40.42, -86.89)).zoom(14).build();
         googleMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(cameraPosition));
     }
@@ -171,4 +216,5 @@ public class MapFragment extends Fragment {
         super.onLowMemory();
         mMapView.onLowMemory();
     }
+
 }

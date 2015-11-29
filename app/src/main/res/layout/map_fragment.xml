@@ -45,12 +45,13 @@
             android:id="@+id/tvName"
             android:layout_below="@+id/imageView"
             android:layout_alignParentLeft="true"
-            android:text="Name of Painting"
+            android:text="Name of Artist"
             android:textSize="30sp"/>
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="12dp"
+            android:id="@+id/tvDesc"
             android:text="Description of painting"
             android:layout_below="@+id/tvName"/>
 
