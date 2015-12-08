@@ -1,5 +1,7 @@
 package com.example.aviral.ss;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,9 +18,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -33,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private ViewPager mViewPager;
+    private CustomViewPager mViewPager;
+    private Button bGallery;
+    private Button bMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +50,34 @@ public class MainActivity extends AppCompatActivity {
         mPagerAdapter = new CustomPagerAdapter(getSupportFragmentManager(), this);
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (CustomViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mPagerAdapter);
+        bGallery = (Button) findViewById(R.id.bGallery);
+        bMap = (Button) findViewById(R.id.bMap);
 
+        bGallery.setOnClickListener(this);
+        bMap.setOnClickListener(this);
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.bGallery:
+                mViewPager.setCurrentItem(1);
+                bGallery.setBackgroundColor(Color.BLACK);
+                bGallery.setTextColor(Color.WHITE);
+                bMap.setBackgroundColor(Color.WHITE);
+                bMap.setTextColor(Color.BLACK);
+                break;
+            case R.id.bMap:
+                mViewPager.setCurrentItem(0);
+                bMap.setBackgroundColor(Color.BLACK);
+                bMap.setTextColor(Color.WHITE);
+                bGallery.setBackgroundColor(Color.WHITE);
+                bGallery.setTextColor(Color.BLACK);
+                break;
+
+        }
+    }
 }

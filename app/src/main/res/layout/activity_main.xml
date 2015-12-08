@@ -6,9 +6,36 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:fitsSystemWindows="true" tools:context=".MainActivity">
 
-    <android.support.v4.view.ViewPager android:id="@+id/container"
-        android:layout_width="match_parent" android:layout_height="match_parent"
+    <com.example.aviral.ss.CustomViewPager android:id="@+id/container"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/bGallery"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/space"
+        android:layout_centerHorizontal="true"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Map"
+        android:textColor="#fff"
+        android:background="#000"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/space"
+        android:id="@+id/bMap"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Gallery"
+        android:background="#fff"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/space"
+        android:id="@+id/bGallery"/>
 
 </RelativeLayout>

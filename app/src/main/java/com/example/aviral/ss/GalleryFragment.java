@@ -41,13 +41,13 @@ public class GalleryFragment extends Fragment {
         {
             inflater = LayoutInflater.from(context);
 
-            items.add(new Item("Image 1", R.drawable.ic_cast_dark));
-            items.add(new Item("Image 2", R.drawable.common_full_open_on_phone));
-            items.add(new Item("Image 3", R.drawable.common_ic_googleplayservices));
-            items.add(new Item("Image 4", R.drawable.mr_ic_audio_vol));
-            items.add(new Item("Image 5", R.drawable.cast_ic_notification_connecting));
-            items.add(new Item("Image 6", R.drawable.cast_ic_notification_2));
-            items.add(new Item("Image 7", R.drawable.cast_ic_notification_1));
+            items.add(new Item("Image 1", R.drawable.n01));
+            items.add(new Item("Image 2", R.drawable.n02));
+            items.add(new Item("Image 3", R.drawable.n03));
+            items.add(new Item("Image 4", R.drawable.n04));
+            items.add(new Item("Image 5", R.drawable.n05));
+            items.add(new Item("Image 6", R.drawable.n06));
+            items.add(new Item("Image 7", R.drawable.n07));
         }
 
         @Override
