@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
     <com.example.aviral.ss.SquareImageView
         android:id="@+id/picture"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="4dp"
         />
     <TextView
         android:id="@+id/text"
@@ -15,6 +19,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="15dp"
+        android:visibility="gone"
         android:paddingBottom="15dp"
         android:layout_gravity="bottom"
         android:textColor="@android:color/white"

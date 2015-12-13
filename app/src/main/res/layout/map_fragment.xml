@@ -48,14 +48,25 @@
             android:layout_below="@+id/imageView"
             android:layout_alignParentLeft="true"
             android:text="Name of Artist"
-            android:textSize="30sp"/>
-        <TextView
+            android:textSize="20sp"/>
+        <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="12dp"
-            android:id="@+id/tvDesc"
-            android:text="Description of painting"
-            android:layout_below="@+id/tvName"/>
+            android:layout_below="@+id/tvName"
+            android:layout_alignParentBottom="true">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:textSize="12sp"
+                android:id="@+id/tvDesc"
+                android:text="Description of painting"
+                android:layout_below="@+id/tvName"/>
+
+        </ScrollView>
+
 
     </RelativeLayout>
 
